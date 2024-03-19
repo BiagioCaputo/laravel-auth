@@ -9,6 +9,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }} | @yield('title')</title>
+    
+    <!-- Per far si che carichi direttamente la pagina senza mostrare linee di codice all'utente nel caricamento -->
+    <style>
+        body{
+            visibility:hidden
+        }
+    </style>
 
 
     <!-- Fonts -->
