@@ -50,8 +50,13 @@
             @endforelse
             </tbody>
         </table>
+        {{-- Paginazione --}}
+        @if ($projects->hasPages())
+        {{ $projects->links()}}
+        @endif
     </div>
 </main>
+
 
 
 @endsection

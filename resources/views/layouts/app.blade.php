@@ -10,7 +10,7 @@
 
     <title>{{ config('app.name', 'Laravel') }} | @yield('title')</title>
     
-    <!-- Per far si che carichi direttamente la pagina senza mostrare linee di codice all'utente nel caricamento -->
+    <!-- Per far si che carichi direttamente la pagina senza mostrare linee di codice all'utente nel caricamento (in app.scss faccio tornare il body visible dopo che la pagina ha caricato tutto) -->
     <style>
         body{
             visibility:hidden
