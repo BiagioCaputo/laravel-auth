@@ -3,6 +3,10 @@
 @section('title', 'Projects')
 
 @section('content')
+
+<header>
+    <h1 class="text-center my-5">Progetti realizzati</h1>
+</header>
 <main>
     <div class="container py-5">
         <table class="table">
@@ -13,6 +17,7 @@
                 <th scope="col">Slug</th>
                 <th scope="col">Creato il</th>
                 <th scope="col">Ultima modifica</th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
@@ -23,10 +28,16 @@
                 <td>{{ $project->slug}}</td>
                 <td>{{ $project->created_at}}</td>
                 <td>{{ $project->updated_at}}</td>
-                <td>
+                <td class="d-flex gap-2">
                     <a href="{{ route('admin.projects.show', $project)}}" class="btn btn-sm btn-primary">
                         <i class="fas fa-eye"></i>
                     </a>
+                    <a href="{{ route('admin.projects.edit', $project)}}" class="btn btn-warning btn-sm"><i class="fas fa-pencil"></i></a>
+                    <form action="{{route('admin.projects.destroy', $project)}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type='submit' class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                    </form>
                 </td>
               </tr>
             @empty
@@ -34,9 +45,7 @@
                 <td colspan="6">
                     <h2 class="text-center">Nessun progetto realizzato</h2>
                 </td>
-              </tr>
-                
-            @endempty 
+              </tr> 
         
             @endforelse
             </tbody>
