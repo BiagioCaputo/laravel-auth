@@ -25,9 +25,9 @@ Route::get('/', GuestHomeController::class)->name('guest.home');
 
 
 Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function(){
-
+    //Rotta admin home
     Route::get('', AdminHomeController::class)->name('home');
-
+    //Rotte admin post
     Route::get('/projects', [ProjectController::class,'index'])->name('projects.index');
     Route::get('/projects/create', [ProjectController::class,'create'])->name('projects.create');
     Route::get('/projects/{project}', [ProjectController::class,'show'])->name('projects.show');
@@ -36,6 +36,7 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function(){
     Route::put('/projects/{project}', [ProjectController::class,'update'])->name('projects.update');
     Route::delete('/projects/{project}', [ProjectController::class,'destroy'])->name('projects.destroy');
 
+    
     //Route::resource('projects', Projecontroller::class);
 });
  
