@@ -14,10 +14,20 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $projects = Project::orderByDesc('updated_at')->orderByDesc('created_at')->paginate(10);
-        return view('admin.projects.index', compact('projects'));
+        /*$projects = Project::orderByDesc('updated_at')->orderByDesc('created_at')->paginate(10);
+        return view('admin.projects.index', compact('projects'));*/
+
+
+        $filter = $request->query('filter');
+        $query = Project::orderByDesc('updated_at')->orderByDesc('created_at');
+        if($filter){
+            $value = $filter === 'completed';
+            $query->whereIsCompleted($value);
+        }
+        $projects = $query->paginate(10)->withQueryString();
+        return view('admin.projects.index', compact('projects', 'filter'));
     }
 
     /**

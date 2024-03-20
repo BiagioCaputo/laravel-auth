@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title', 100)->unique();
             $table->string('slug')->unique();
             $table->text('description');
+            $table->boolean('is_completed');
             $table->string('image')->nullable();
 
             $table->timestamps();

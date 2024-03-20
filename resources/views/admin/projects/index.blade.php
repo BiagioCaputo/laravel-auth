@@ -7,8 +7,22 @@
 {{--Contenuto principale pagina--}}
 @section('content')
 
-<header>
-    <h1 class="text-center my-5">Progetti realizzati</h1>
+<header class="mb-4 mt-5">
+  <div class="container d-flex justify-content-between align-items-center">
+    <h1 class="">Progetti realizzati</h1>
+    <div class="col-2">
+      <form action="{{route('admin.projects.index')}}" method="GET">
+        <div class="input-group">
+          <select class="form-select" name="filter">
+            <option value="">Tutti</option>
+            <option value="completed" @if($filter === 'completed') selected @endif>Completati</option>
+            <option value="uncompleted" @if($filter === 'uncompleted') selected @endif>In corso</option>
+          </select>
+          <button class="btn btn-outline-secondary">Cerca</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </header>
 
 <main>
@@ -21,6 +35,7 @@
                 <th scope="col">Slug</th>
                 <th scope="col">Creato il</th>
                 <th scope="col">Ultima modifica</th>
+                <th scope="col">Completato</th>
                 <th scope="col">
                   <div class="d-flex gap-2 justify-content-end">
                     <a href="{{ route('admin.projects.create')}}" class="btn btn-success btn-sm"><i class="fas fa-plus me-1"></i>Nuovo</a>
@@ -37,6 +52,7 @@
                 <td>{{ $project->slug}}</td>
                 <td>{{ $project->getFormattedDate('created_at')}}</td>
                 <td>{{ $project->getFormattedDate('updated_at')}}</td>
+                <td class="ps-4">{!! $project->completeIcon() !!}</td>
                 <td class="d-flex gap-2 justify-content-end">
                     <a href="{{ route('admin.projects.show', $project)}}" class="btn btn-sm btn-primary">
                         <i class="fas fa-eye"></i>
