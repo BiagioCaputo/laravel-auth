@@ -32,15 +32,17 @@
 
 <body>
     <div id="app">
-
+        {{-- Navbar --}}
         @include('includes.layouts.navbar')
-
+        {{-- Alert --}}
         @include('includes.alert')
-
+        {{-- Main content --}}
         @yield('content')
     </div>
+    {{-- Toasts --}}
+    @include('includes.toast')
 
-
+    {{-- Scripts --}}
     @yield('scripts')
 </body>
 

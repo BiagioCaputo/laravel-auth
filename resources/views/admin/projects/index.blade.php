@@ -71,6 +71,7 @@
 {{--Scripts--}}
 @section('scripts')
     @vite('resources/js/delete_confirmation.js')
+    @vite('resources/js/toast_timer.js')
 @endsection
 
 
