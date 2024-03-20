@@ -91,8 +91,11 @@ class ProjectController extends Controller
         ]);
     
         $data = $request->all();
+
+        $data['slug'] = Str::slug($data['title']);
     
         $project->update($data);
+
     
         return to_route('admin.projects.show', $project->id)->with('type', 'success')->with('message', 'Progetto modificato con successo');
     }

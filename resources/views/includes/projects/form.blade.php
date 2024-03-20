@@ -20,7 +20,7 @@
         <div class="col-6">
             <div class="mb-4">
                 <label for="slug" class="form-label">Slug</label>
-                <input type="text" class="form-control" id="slug" disabled>
+                <input type="text" class="form-control" id="slug" value="{{ Str::slug(old('title', $project->title)) }}" disabled>
             </div>
         </div>
         <div class="col-12">
@@ -62,3 +62,4 @@
         </div>
     </div>
 </form>
+
