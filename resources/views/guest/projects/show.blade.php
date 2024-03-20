@@ -5,13 +5,12 @@
 @section('content')
 
 <header>
-    <h1 class="text-center my-5">Benvenuti! Questi sono i miei progetti</h1>
+    <h1 class="text-center my-5">Dettagli progetto</h1>
 </header>
 <main>
     <div class="container py-5">
         <div class="row">
-            @forelse($projects as $project)
-            <div class="col-4">
+            <div class="col-10">
                 <div class="card my-5" >
                     @if($project->image)
                     <img src="{{$project->image}}" class="card-img-top" alt="{{$project->title}}">
@@ -19,25 +18,11 @@
                     <div class="card-body">
                     <h5 class="card-title">{{$project->title}}</h5>
                     <p class="card-text">{{$project->description}}</p>
-                    <a href="{{ route('guest.projects.show', $project->slug)}}" class="btn btn-sm btn-primary">
-                        <i class="fas fa-eye"></i>
-                    </a>
                     </div>
                 </div>
             </div>
-            
-        
-            @empty
-            <div class="col-8">
-                <h1 class="text-center">Attualmente non ci sono progetti....</h1>
-            </div>
-            @endforelse
 
         <div>
-            {{-- Paginazione --}}
-        @if ($projects->hasPages())
-        {{ $projects->links()}}
-        @endif
     </div>
 </main>
 
