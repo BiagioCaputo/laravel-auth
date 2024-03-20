@@ -12,7 +12,9 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/delete_confirmation.js',
                 'resources/js/slug_field.js',
-                'resources/js/toast_timer.js'
+                'resources/js/toast_timer.js',
+                'resources/js/image_preview.js',
+
             ],
             refresh: true,
         }),
