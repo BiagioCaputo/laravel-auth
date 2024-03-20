@@ -1,12 +1,16 @@
+{{--Layout--}}
 @extends('layouts.app')
 
+{{--Titolo--}}
 @section('title', 'Projects')
 
+{{--Contenuto principale pagina--}}
 @section('content')
 
 <header>
     <h1 class="text-center my-5">Progetti realizzati</h1>
 </header>
+
 <main>
     <div class="container py-5">
         <table class="table">
@@ -59,10 +63,9 @@
     </div>
 </main>
 
-
-
 @endsection
 
+{{--Scripts--}}
 @section('scripts')
     @vite('resources/js/delete_confirmation.js')
 @endsection

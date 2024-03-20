@@ -38,7 +38,8 @@ class ProjectController extends Controller
             'title' => 'required|string|unique:projects',
             'description' => 'required|string',
             'image' => 'nullable|url',
-        ], [
+        ], 
+        [
             'title.required' => 'Il progetto deve avere un titolo',
             'description.required' => 'Il progetto deve avere una descrizione',
             'image.url' => 'L\'url dell\'immagine del progetto non è funzionante',
@@ -70,7 +71,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view('admin.projects.edit', compact('project'));
     }
 
     /**
@@ -78,7 +79,22 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $request->validate([
+            'title' => ['required', 'string', Rule::unique('projects')->ignore($project->id)],
+            'description' => 'required|string',
+            'image' => 'nullable|url',
+        ], 
+        [
+            'title.required' => 'Il progetto deve avere un titolo',
+            'description.required' => 'Il progetto deve avere una descrizione',
+            'image.url' => 'L\'url dell\'immagine del progetto non è funzionante',
+        ]);
+    
+        $data = $request->all();
+    
+        $project->update($data);
+    
+        return to_route('admin.projects.show', $project->id)->with('type', 'success')->with('message', 'Progetto modificato con successo');
     }
 
     /**

@@ -1,6 +1,11 @@
+{{--Layout--}}
 @extends('layouts.app')
 
+{{--Titolo--}}
 @section('title', 'Projects')
+
+
+{{--Contenuto principale pagina--}}
 
 @section('content')
 
@@ -35,9 +40,10 @@
     </div>
 </footer>
 
-
 @endsection
 
+
+{{--Scripts--}}
 @section('scripts')
     @vite('resources/js/delete_confirmation.js')
 @endsection
