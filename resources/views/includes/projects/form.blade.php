@@ -52,6 +52,15 @@
                 <img src="https://marcolanci.it/boolean/assets/placeholder.png" class="img-fluid" alt="img-post" id="preview">
             </div>
         </div>
+        <div class="col-12 d-flex justify-content-end">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="is_completed" name="is_completed" value="1"
+                @if (old('is_completed', $project->is_completed)) checked @endif>
+                <label class="form-check-label" for="is_completed">
+                    Completato
+                </label>
+            </div>
+        </div>
         <hr>
         <div class="d-flex justify-content-between my-5">
             <a href="{{route('admin.projects.index')}}" class="btn btn-primary"><i class="fa-solid fa-left-long me-2"></i>Torna indietro</a>

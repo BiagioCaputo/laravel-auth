@@ -6,6 +6,7 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 
 use App\Http\Controllers\Controller;
 
@@ -62,6 +63,8 @@ class ProjectController extends Controller
         $project->fill($data);
 
         $project->slug = Str::slug($project->title);
+        $project->is_completed = Arr::exists($data, 'is_completed');
+        
 
         $project->save();
 
@@ -103,6 +106,7 @@ class ProjectController extends Controller
         $data = $request->all();
 
         $data['slug'] = Str::slug($data['title']);
+        $data['is_completed'] = Arr::exists($data, 'is_completed');
     
         $project->update($data);
 
