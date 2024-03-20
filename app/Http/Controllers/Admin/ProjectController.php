@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
+
 use App\Http\Controllers\Controller;
 
 class ProjectController extends Controller
@@ -22,7 +25,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        $project = new Project();
+        return view('admin.projects.create', compact('project'));
     }
 
     /**
@@ -30,7 +34,27 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|unique:projects',
+            'description' => 'required|string',
+            'image' => 'nullable|url',
+        ], [
+            'title.required' => 'Il progetto deve avere un titolo',
+            'description.required' => 'Il progetto deve avere una descrizione',
+            'image.url' => 'L\'url dell\'immagine del progetto non è funzionante',
+        ]);
+
+        $data = $request->all();
+        
+        $project = new Project();
+
+        $project->fill($data);
+
+        $project->slug = Str::slug($project->title);
+
+        $project->save();
+
+        return to_route('admin.projects.show', $project->id)->with('type', 'success')->with('message', 'Progetto creato con successo');
     }
 
     /**

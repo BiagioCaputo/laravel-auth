@@ -14,8 +14,8 @@
                 <img src="{{$project->image}}" alt="{{$project->title}}" class="me-2 float-start">
             @endif
             <p>{{$project->description}}</p>
-            <strong>Creato il:</strong> {{$project->created_at}}
-            <strong>Creato il:</strong> {{$project->updated_at}}
+            <strong>Creato il:</strong> {{ $project->getFormattedDate('created_at')}}
+            <strong>Creato il:</strong> {{ $project->getFormattedDate('updated_at')}}
         </div>
         <hr>      
     </div>

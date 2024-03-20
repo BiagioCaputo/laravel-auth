@@ -17,7 +17,9 @@
                 <th scope="col">Slug</th>
                 <th scope="col">Creato il</th>
                 <th scope="col">Ultima modifica</th>
-                <th scope="col"></th>
+                <th scope="col">
+                  <a href="{{ route('admin.projects.create')}}" class="btn btn-success btn-sm"><i class="fas fa-plus me-1"></i>Nuovo</a>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -26,8 +28,8 @@
                 <th scope="row">{{ $project->id}}</th>
                 <td>{{ $project->title}}</td>
                 <td>{{ $project->slug}}</td>
-                <td>{{ $project->created_at}}</td>
-                <td>{{ $project->updated_at}}</td>
+                <td>{{ $project->getFormattedDate('created_at')}}</td>
+                <td>{{ $project->getFormattedDate('updated_at')}}</td>
                 <td class="d-flex gap-2">
                     <a href="{{ route('admin.projects.show', $project)}}" class="btn btn-sm btn-primary">
                         <i class="fas fa-eye"></i>
