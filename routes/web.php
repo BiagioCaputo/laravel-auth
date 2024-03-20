@@ -33,6 +33,7 @@ Route::get('/projects/{slug}', [App\Http\Controllers\Guest\ProjectController::cl
 Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function(){
     //Rotta admin home
     Route::get('', AdminHomeController::class)->name('home');
+
     /*Rotte admin post
     Route::get('/projects', [ProjectController::class,'index'])->name('projects.index');
     Route::get('/projects/create', [ProjectController::class,'create'])->name('projects.create');
@@ -42,7 +43,12 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function(){
     Route::put('/projects/{project}', [ProjectController::class,'update'])->name('projects.update');
     Route::delete('/projects/{project}', [ProjectController::class,'destroy'])->name('projects.destroy');*/
 
+    //cestino
+    Route::get('/projects/trash', [AdminProjectController::class, 'trash'])->name('projects.trash');
+    Route::patch('/projects/{project}/restore', [AdminProjectController::class, 'restore'])->name('projects.restore')->withTrashed();
+    Route::delete('/projects/{project}/drop', [AdminProjectController::class, 'drop'])->name('projects.drop')->withTrashed();
 
+    //Rotte admin Post
     Route::resource('projects', AdminProjectcontroller::class);
 });
  
