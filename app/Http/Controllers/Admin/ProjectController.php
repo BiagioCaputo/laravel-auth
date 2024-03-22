@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 
 use App\Http\Controllers\Controller;
 
@@ -48,12 +49,12 @@ class ProjectController extends Controller
         $request->validate([
             'title' => 'required|string|unique:projects',
             'description' => 'required|string',
-            'image' => 'nullable|url',
+            'image' => 'nullable|image',
         ], 
         [
             'title.required' => 'Il progetto deve avere un titolo',
             'description.required' => 'Il progetto deve avere una descrizione',
-            'image.url' => 'L\'url dell\'immagine del progetto non è funzionante',
+            'image.image' => 'Il file inserito non è un immagine',
         ]);
 
         $data = $request->all();
@@ -64,11 +65,20 @@ class ProjectController extends Controller
 
         $project->slug = Str::slug($project->title);
         $project->is_completed = Arr::exists($data, 'is_completed');
+
+        //controllo se arriva un file
+        if(Arr::exists($data, 'image')){
+            $extension = $data['image']->extension(); //salvo nella variabile extension l'estensione dell'immagine inserita dall'utente
+
+            $img_url = Storage::putFileAs('project_images', $data['image'], "$project->slug.$extension"); //salvo nella variabile url e in project images l'immagine rinominata con lo slug del progetto
+
+            $project->image= $img_url;
+        }
         
 
         $project->save();
 
-        return to_route('admin.projects.show', $project->id)->with('type', 'success')->with('message', 'Progetto creato con successo');
+        return to_route('admin.projects.show', $project)->with('type', 'success')->with('message', 'Progetto creato con successo');
     }
 
     /**
@@ -95,18 +105,33 @@ class ProjectController extends Controller
         $request->validate([
             'title' => ['required', 'string', Rule::unique('projects')->ignore($project->id)],
             'description' => 'required|string',
-            'image' => 'nullable|url',
+            'image' => 'nullable|image|mimes:png,jpg,jpeg',
         ], 
         [
             'title.required' => 'Il progetto deve avere un titolo',
             'description.required' => 'Il progetto deve avere una descrizione',
-            'image.url' => 'L\'url dell\'immagine del progetto non è funzionante',
+            'image.image' => 'Il file inserito non è un immagine',
+            'image.mimes' => 'Le estensioni valide sono .png, .jpg e .jpeg',
         ]);
     
         $data = $request->all();
 
         $data['slug'] = Str::slug($data['title']);
         $data['is_completed'] = Arr::exists($data, 'is_completed');
+
+        //controllo se arriva un file
+        if(Arr::exists($data, 'image')){
+
+            // controllo se ho un altra immagine già esistente nella cartella e la cancello
+            if($project->image) Storage::delete($project->image);
+
+            $extension = $data['image']->extension(); //salvo nella variabile extension l'estensione dell'immagine inserita dall'utente
+
+            $img_url = Storage::putFileAs('project_images', $data['image'], "{$data['slug']}.$extension"); //salvo nella variabile url e in project images l'immagine rinominata con lo slug del progetto
+
+            $project->image= $img_url;
+            
+        }
     
         $project->update($data);
 

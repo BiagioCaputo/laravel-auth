@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -17,13 +19,20 @@ class ProjectFactory extends Factory
      */
     public function definition(): array
     {
+        Storage::makeDirectory('project_images');
+
         $title = fake()->text(20);
+        $slug = Str::slug($title);
+        $img = fake()->image(null, 250, 250, null);
+
+        $img_url = Storage::putFileAs('project_images', $img, "$slug.png");
+
         return [
             'title' => $title,
-            'slug' => Str::slug($title),
-            'description' => fake()->paragraphs(12, true),//se lascio false fa un array
+            'slug' => $slug,
+            'description' => fake()->paragraphs(10, true),//se lascio false fa un array
+            'image' => $img_url,
             'is_completed' => fake()->boolean(),
-            'image' => fake()->imageUrl(250, 250, true)
         ];
     }
 }

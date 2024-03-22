@@ -25,4 +25,9 @@ class Project extends Model
     {
         return $this->is_completed ? "<i class='fa-solid fa-circle-check fa-xl' style='color: #2b9b1c;'></i>" : "<i class='fa-solid fa-circle-xmark fa-xl' style='color: #da1616;'></i>";
     }
+
+    public function printImage()
+    {
+        return asset('storage/' . $this->$image);
+    }
 }

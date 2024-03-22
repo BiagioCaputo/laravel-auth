@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 //Rotta home guest
 Route::get('/', GuestHomeController::class)->name('guest.home');
 
-Route::get('/projects/{slug}', [App\Http\Controllers\Guest\ProjectController::class, 'show'])->name('guest.projects.show'); // non funziona l'alias...
+Route::get('/projects/{slug}', [GuestProjectController::class, 'show'])->name('guest.projects.show'); // non funziona l'alias...
 
 
 
@@ -49,7 +49,7 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function(){
     Route::delete('/projects/{project}/drop', [AdminProjectController::class, 'drop'])->name('projects.drop')->withTrashed();
 
     //Rotte admin Post
-    Route::resource('projects', AdminProjectcontroller::class);
+    Route::resource('projects', AdminProjectcontroller::class)->withTrashed(['show', 'edit', 'update']); 
 });
  
 
