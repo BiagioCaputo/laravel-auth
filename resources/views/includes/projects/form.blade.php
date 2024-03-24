@@ -77,7 +77,7 @@
         </div>
         <div class="col-1">
             <div class="mb-5">
-                <img src="{{old($project->printImage()) , "https://marcolanci.it/boolean/assets/placeholder.png"}}" class="img-fluid" alt="img-post" id="preview">
+                <img src="{{old('image', $project->image) ? $project->printImage() : 'https://marcolanci.it/boolean/assets/placeholder.png'}}" class="img-fluid" alt="img-post" id="preview">
             </div>
         </div>
         <div class="col-12 d-flex justify-content-end">

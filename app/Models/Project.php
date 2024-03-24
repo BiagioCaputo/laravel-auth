@@ -28,6 +28,6 @@ class Project extends Model
 
     public function printImage()
     {
-        return asset('storage/' . $this->$image);
+        return asset('storage/' . $this->image);
     }
 }

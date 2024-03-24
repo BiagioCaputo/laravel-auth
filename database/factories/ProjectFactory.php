@@ -23,8 +23,8 @@ class ProjectFactory extends Factory
 
         $title = fake()->text(20);
         $slug = Str::slug($title);
-        $img = fake()->image(null, 250, 250, null);
-
+        $img = fake()->image(null, 640, 480);
+        \Log::debug(var_export($img, true));
         $img_url = Storage::putFileAs('project_images', $img, "$slug.png");
 
         return [

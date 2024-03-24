@@ -14,7 +14,7 @@
             <div class="col-4">
                 <div class="card my-5" >
                     @if($project->image)
-                    <img src="{{$project->printImage()}}" class="card-img-top" alt="{{$project->title}}">
+                    <img src="{{ $project->printImage() }}" class="card-img-top" alt="{{$project->title}}">
                     @endif
                     <div class="card-body">
                     <h5 class="card-title">{{$project->title}}</h5>

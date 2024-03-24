@@ -105,13 +105,12 @@ class ProjectController extends Controller
         $request->validate([
             'title' => ['required', 'string', Rule::unique('projects')->ignore($project->id)],
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:png,jpg,jpeg',
+            'image' => 'nullable|image',
         ], 
         [
             'title.required' => 'Il progetto deve avere un titolo',
             'description.required' => 'Il progetto deve avere una descrizione',
             'image.image' => 'Il file inserito non è un immagine',
-            'image.mimes' => 'Le estensioni valide sono .png, .jpg e .jpeg',
         ]);
     
         $data = $request->all();
@@ -129,7 +128,7 @@ class ProjectController extends Controller
 
             $img_url = Storage::putFileAs('project_images', $data['image'], "{$data['slug']}.$extension"); //salvo nella variabile url e in project images l'immagine rinominata con lo slug del progetto
 
-            $project->image= $img_url;
+            $project->image = $img_url;
             
         }
     

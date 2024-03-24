@@ -16,7 +16,7 @@
     <div class="container py-5">
         <div class="clearfix">
             @if ($project->image)
-                <img src="{{$project->image}}" alt="{{$project->title}}" class="me-2 float-start">
+                <img src="{{ $project->printImage() }}" alt="{{$project->title}}" class="me-2 float-start">
             @endif
             <p>{{$project->description}}</p>
             <strong>Creato il:</strong> {{ $project->getFormattedDate('created_at')}}

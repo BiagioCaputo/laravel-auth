@@ -22,12 +22,9 @@ imageField.addEventListener('change', () => {
         previewField.src = blobUrl;
     }
     else {
-        previewField = placeholder;
+        previewField.src = placeholder;
     }
 
-    window.addEventListener('click', () => {
-        if (blobUrl) URL.revokeObjectURL(blobUrl);
-    })
 
 });
 
@@ -41,4 +38,8 @@ changeImageButton.addEventListener('click', () => {
     imageField.classList.remove('d-none');
     previewField.src = placeholder;
     imageField.click();
+})
+
+window.addEventListener('click', () => {
+    if (blobUrl) URL.revokeObjectURL(blobUrl);
 })
